@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Victorian Electrical Infrastructure Map - Nick's Project</title>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="header">
+    <h1><i class="fas fa-bolt"></i> Victorian Electrical Infrastructure Map</h1>
+    <p>Interactive mapping of 66kV substations, land parcels, and power infrastructure</p>
+  </div>
+  
+  <div class="container">
+    <div class="sidebar">
+      <div class="control-panel">
+        <h3><i class="fas fa-layer-group"></i> Layer Controls</h3>
+        
+        <div class="control-group">
+          <label for="showSubstations"><i class="fas fa-map-marker-alt"></i> Substations:</label>
+          <input type="checkbox" id="showSubstations" checked />
+        </div>
+        
+        <div class="control-group">
+          <label for="showParcels"><i class="fas fa-draw-polygon"></i> Land Parcels:</label>
+          <input type="checkbox" id="showParcels" checked />
+        </div>
+        
+        <div class="control-group">
+          <label for="showPowerLines"><i class="fas fa-bolt"></i> Power Lines:</label>
+          <input type="checkbox" id="showPowerLines" checked />
+        </div>
+        
+        <div class="control-group">
+          <label for="showRoads"><i class="fas fa-road"></i> Roads:</label>
+          <input type="checkbox" id="showRoads" checked />
+        </div>
+      </div>
+      
+      <div class="filter-panel">
+        <h3><i class="fas fa-filter"></i> Filters</h3>
+        
+        <div class="control-group">
+          <label for="bessFilter">BESS Suitable Only:</label>
+          <input type="checkbox" id="bessFilter" />
+        </div>
+        
+        <div class="control-group">
+          <label for="voltageFilter">Voltage Level:</label>
+          <select id="voltageFilter">
+            <option value="all">All Voltages</option>
+            <option value="22">22kV</option>
+            <option value="33">33kV</option>
+            <option value="66">66kV</option>
+            <option value="132">132kV</option>
+            <option value="275">275kV</option>
+          </select>
+        </div>
+        
+        <div class="control-group">
+          <label for="dnspFilter">DNSP:</label>
+          <select id="dnspFilter">
+            <option value="all">All DNSPs</option>
+            <option value="AusNet">AusNet</option>
+            <option value="Powercor">Powercor</option>
+            <option value="United Energy">United Energy</option>
+            <option value="Jemena">Jemena</option>
+            <option value="CitiPower">CitiPower</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="info-panel">
+        <h3><i class="fas fa-info-circle"></i> Map Info</h3>
+        <div id="mapStats">
+          <p>Loading data...</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="map-container">
+      <div id="map"></div>
+      <div class="map-controls">
+        <button id="fullscreenBtn" title="Toggle Fullscreen"><i class="fas fa-expand"></i></button>
+        <button id="resetViewBtn" title="Reset View"><i class="fas fa-home"></i></button>
+        <button id="exportBtn" title="Export Data"><i class="fas fa-download"></i></button>
+      </div>
+      <button id="zoomPowerLineBtn" style="position:absolute;top:60px;right:10px;z-index:2000;background:#39ff14;color:#222;font-weight:bold;border:2px solid #222;border-radius:6px;padding:8px 12px;cursor:pointer;">Zoom to Power Line</button>
+    </div>
+  </div>
+  
+  <div class="legend" id="legendBox">
+    <button id="minimizeLegendBtn" title="Minimize legend" style="position:absolute;top:8px;right:8px;background:none;border:none;cursor:pointer;font-size:1.1em;"><i class="fas fa-minus"></i></button>
+    <h4><i class="fas fa-legend"></i> Legend</h4>
+    <div class="legend-item">
+      <span class="legend-color" style="background: #e74c3c;"></span>
+      <span>Substations</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-color" style="background: #28a745;"></span>
+      <span>BESS Suitable Parcels</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-color" style="background: #0074D9;"></span>
+      <span>Other Parcels</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-color" style="background: #f39c12; width: 20px; height: 3px;"></span>
+      <span>Power Lines</span>
+    </div>
+    <div class="legend-item">
+      <span class="legend-color" style="background: #34495e; width: 20px; height: 2px;"></span>
+      <span>Roads</span>
+    </div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster/dist/MarkerCluster.Default.css" />
+  <script src="https://unpkg.com/leaflet.markercluster/dist/leaflet.markercluster.js"></script>
+  <script src="script.js"></script>
+</body>
+</html> 
